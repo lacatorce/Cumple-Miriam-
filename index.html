@@ -82,6 +82,26 @@ max-width: 90%;
 max-height: 90%;
 border-radius: 20px;
 border: 5px solid white;
+} 
+  .player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #111;
+  padding: 10px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.player.hidden {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.player.visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 
  </style>
@@ -292,8 +312,51 @@ document.getElementById("visor").style.display = "flex";
 
 function cerrarVisor() {
 document.getElementById("visor").style.display = "none";
+} 
+  const audio = document.getElementById("audio");
+const player = document.getElementById("player");
+const buttons = document.querySelectorAll(".song-btn");
+
+let currentSong = null;
+
+function mostrarPlayer() {
+  player.classList.remove("hidden");
+  player.classList.add("visible");
 }
-</script>
+
+function ocultarPlayer() {
+  player.classList.remove("visible");
+  player.classList.add("hidden");
+}
+
+// Click en canciones
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    const songSrc = button.dataset.src;
+
+    // Misma canción → esconder
+    if (currentSong === songSrc) {
+      audio.pause();
+      ocultarPlayer();
+      currentSong = null;
+      return;
+    }
+
+    // Otra canción
+    audio.pause();
+    audio.src = songSrc;
+    audio.play();
+
+    mostrarPlayer();
+    currentSong = songSrc;
+  });
+});
+
+// Cuando termina la canción → esconder solo
+audio.addEventListener("ended", () => {
+  ocultarPlayer();
+  currentSong = null;
+});
 
  </script>
 <div id="visor" onclick="cerrarVisor()">
@@ -302,3 +365,4 @@ document.getElementById("visor").style.display = "none";
 </body>
 
 </html>
+
