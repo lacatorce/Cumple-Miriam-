@@ -1,373 +1,220 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Feliz Cumple </title>
- <div id="player" class="player hidden">
-  <audio id="audio" controls></audio>
-</div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Cumple</title>
 
- <style>
- body {
- font-family: Arial, sans-serif;
- background: linear-gradient(#ffd6e8, #ffffff);
- text-align: center;
- margin: 0;
- padding: 20px;
- }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(#ffd6e8, #ffffff);
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
 
- h1 {
- color: #d63384;
- }
+    h1 {
+      color: #d63384;
+    }
 
- p {
- font-size: 18px;
- }
+    p {
+      font-size: 18px;
+    }
 
- img {
- width: 90%;
- max-width: 320px;
- border-radius: 15px;
- margin: 15px 0;
- }
+    img {
+      width: 90%;
+      max-width: 320px;
+      border-radius: 15px;
+      margin: 15px 0;
+    }
 
- button {
- background-color: #ff5fa2;
- color: white;
- border: none;
- padding: 15px;
- border-radius: 25px;
- font-size: 16px;
- margin: 10px 0;
- width: 100%;
- max-width: 340px;
- cursor: pointer;
- }
+    button {
+      background-color: #ff5fa2;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 25px;
+      font-size: 16px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 340px;
+      cursor: pointer;
+    }
 
- .song {
- display: none;
- margin-bottom: 25px;
- }
-.collage {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
-margin: 25px auto;
-max-width: 360px;
-}
+    .collage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 25px auto;
+      max-width: 360px;
+    }
 
-.collage img {
-width: 100%;
-height: 180px;
-object-fit: cover;
-border-radius: 15px;
-border: 4px solid #ffb6d5;
-box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-cursor: pointer;
-}
+    .collage img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 15px;
+      border: 4px solid #ffb6d5;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
 
-#visor {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0,0,0,0.8);
-justify-content: center;
-align-items: center;
-z-index: 1000;
-}
+    /* VISOR */
+    #visor {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
 
-#visor img {
-max-width: 90%;
-max-height: 90%;
-border-radius: 20px;
-border: 5px solid white;
-} 
-  .player {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #111;
-  padding: 10px;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
+    #visor img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      border: 5px solid white;
+    }
 
-.player.hidden {
-  transform: translateY(100%);
-  opacity: 0;
-  pointer-events: none;
-}
+    /* REPRODUCTOR */
+    .player {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #111;
+      padding: 10px;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      z-index: 999;
+    }
 
-.player.visible {
-  transform: translateY(0);
-  opacity: 1;
-}
+    .player.hidden {
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
 
- </style>
+    .player.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
 </head>
 
 <body>
 
- <h1> Te quiero de aquí a la luna a pasitos de tortuga </h1>
+  <h1>Te quiero de aquí a la luna a pasitos de tortuga</h1>
 
- <p>
- Esto es solo para ti.<br>
- 16 años, 16 canciones, 16 recuerdos, una amistad infinita desde ese 06/08 hasta siempre💚. 
- </p>
+  <p>
+    Esto es solo para ti.<br>
+    16 años, 16 canciones, 16 recuerdos, una amistad infinita desde ese 06/08 hasta siempre 💚
+  </p>
 
- <img src="foto1.jpg" alt="Nosotras">
+  <img src="foto1.jpg" alt="Nosotras">
 
- <h2> Descubre tus sorpresas</h2>
+  <h2>Descubre tus sorpresas</h2>
 
- <!-- CANCIÓN 1 -->
- <button onclick="mostrar('song1')">
- La canción que me recuerda a ti
- </button>
- <div id="song1" class="song">
- <audio controls>
- <source src="cancion1.mp3" type="audio/mpeg">
- </audio>
- </div>
+  <!-- BOTONES DE CANCIONES -->
+  <button class="song-btn" data-src="cancion1.mp3">La canción que me recuerda a ti</button>
+  <button class="song-btn" data-src="cancion2.mp3">Nunca te vayas porque...</button>
+  <button class="song-btn" data-src="cancion3.mp3">Tú eres mi...</button>
+  <button class="song-btn" data-src="cancion4.mp3">Estoy feliz porque...</button>
+  <button class="song-btn" data-src="cancion5.mp3">Nunca olvides que quiero... contigo</button>
+  <button class="song-btn" data-src="cancion6.mp3">Porque siempre seremos tú y yo...</button>
+  <button class="song-btn" data-src="cancion7.mp3">Siempre serás mi...</button>
 
- <!-- CANCIÓN 2 -->
- <button onclick="mostrar('song2')">
- Nunca te vayas porque...
- </button>
- <div id="song2" class="song">
- <audio controls>
- <source src="cancion2.mp3" type="audio/mpeg">
- </audio>
- </div>
+  <h2>Algunos de nuestros recuerdos 💚</h2>
 
- <!-- CANCIÓN 3 -->
- <button onclick="mostrar('song3')">
- Tu eres mi..
- </button>
- <div id="song3" class="song">
- <audio controls>
- <source src="cancion3.mp3" type="audio/mpeg">
- </audio>
- </div>
+  <div class="collage">
+    <img src="foto3.jpg" onclick="abrirVisor(this.src)">
+    <img src="foto4.jpg" onclick="abrirVisor(this.src)">
+    <img src="foto5.jpg" onclick="abrirVisor(this.src)">
+    <img src="foto6.jpg" onclick="abrirVisor(this.src)">
+  </div>
 
- <!-- CANCIÓN 4 -->
- <button onclick="mostrar('song4')">
- Estoy feliz porque...
- </button>
- <div id="song4" class="song">
- <audio controls>
- <source src="cancion4.mp3" type="audio/mpeg">
- </audio>
- </div>
+  <button class="song-btn" data-src="cancion8.mp3">Siempre será tuya esta...</button>
+  <button class="song-btn" data-src="cancion9.mp3">Cuando tengas miedo...</button>
+  <button class="song-btn" data-src="cancion10.mp3">Nunca te vayas por favor...</button>
+  <button class="song-btn" data-src="cancion11.mp3">Ya habla él por mí...</button>
+  <button class="song-btn" data-src="cancion12.mp3">Porque si no estás...</button>
+  <button class="song-btn" data-src="cancion13.mp3">Que aparecieras en mi vida</button>
+  <button class="song-btn" data-src="cancion14.mp3">Solo tú y yo entendemos esto</button>
+  <button class="song-btn" data-src="cancion15.mp3">Hoy y siempre eres...</button>
+  <button class="song-btn" data-src="cancion16.mp3">Lo que siempre me pregunto es...</button>
 
- <!-- CANCIÓN 5 -->
- <button onclick="mostrar('song5')">
- Nunca olvides que quiero... contigo
- </button>
- <div id="song5" class="song">
- <audio controls>
- <source src="cancion5.mp3" type="audio/mpeg">
- </audio>
- </div>
+  <img src="foto2.jpg" alt="Siempre juntas 💚">
 
- <!-- CANCIÓN 6 -->
- <button onclick="mostrar('song6')">
- Porque siempre seremos tu y yo...
- </button>
- <div id="song6" class="song">
- <audio controls>
- <source src="cancion6.mp3" type="audio/mpeg">
- </audio>
- </div>
+  <p>
+    Gracias por existir<br>
+    Te quiero hoy, mañana y siempre
+  </p>
 
- <!-- CANCIÓN 7 -->
- <button onclick="mostrar('song7')">
- Siempre seras mi...
- </button>
- <div id="song7" class="song">
- <audio controls>
- <source src="cancion7.mp3" type="audio/mpeg">
- </audio>
- </div>
+  <!-- REPRODUCTOR -->
+  <div id="player" class="player hidden">
+    <audio id="audio" controls></audio>
+  </div>
 
-<h2> Algunos de nuestros recuerdos💚</h2>
+  <!-- VISOR -->
+  <div id="visor" onclick="cerrarVisor()">
+    <img id="visorImg">
+  </div>
 
-<div class="collage">
-<img src="foto3.jpg" onlinck="abrirVisor(this.src" alt="Recuerdo 1">
-<img src="foto4.jpg" onlinck="abrirVisor(this.src" alt="Recuerdo 2">
-<img src="foto5.jpg" onlinck="abrirVisor(this.src" alt="Recuerdo 3">
-<img src="foto6.jpg" onlinck="abrirVisor(this.src" alt="Recuerdo 4">
-</div>
+  <!-- JAVASCRIPT -->
+  <script>
+    const audio = document.getElementById("audio");
+    const player = document.getElementById("player");
+    const buttons = document.querySelectorAll(".song-btn");
 
+    let currentSong = null;
 
- <!-- CANCIÓN 8 -->
- <button onclick="mostrar('song8')">
- Siempre será tuya esta...
- </button>
- <div id="song8" class="song">
- <audio controls>
- <source src="cancion8.mp3" type="audio/mpeg">
- </audio>
- </div>
-
- <!-- CANCIÓN 9 -->
- <button onclick="mostrar('song9')">
- Cuando tengas miedo...
- </button>
- <div id="song9" class="song">
- <audio controls>
- <source src="cancion9.mp3" type="audio/mpeg">
- </audio>
- </div>
-
- <!-- CANCIÓN 10 -->
- <button onclick="mostrar('song10')">
- Nunca te vayas porfavor y … semos tu y yo
- </button>
- <div id="song10" class="song">
- <audio controls>
- <source src="cancion10.mp3" type="audio/mpeg">
- </audio>
- </div>
-
- <!-- CANCIÓN 11 -->
- <button onclick="mostrar('song11')">
- Ya habla el por mi...
- </button>
- <div id="song11" class="song">
- <audio controls>
- <source src="cancion11.mp3" type="audio/mpeg">
- </audio>
- </div>
-
- <!-- CANCIÓN 12 -->
- <button onclick="mostrar('song12')">
- Porque si no estas...
- </button>
- <div id="song12" class="song">
- <audio controls>
- <source src="cancion12.mp3" type="audio/mpeg">
- </audio>
- </div>
-
- <!-- CANCIÓN 13 -->
- <button onclick="mostrar('song13')">
- … que aparecieras en mi vida
- </button>
- <div id="song13" class="song">
- <audio controls>
- <source src="cancion13.mp3" type="audio/mpeg">
- </audio>
- </div>
-
- <!-- CANCIÓN 14 -->
- <button onclick="mostrar('song14')">
- Solo tú y yo entendemos esto
- </button>
- <div id="song14" class="song">
- <audio controls>
- <source src="cancion14.mp3" type="audio/mpeg">
- </audio>
- </div>
-
- <!-- CANCIÓN 15 -->
- <button onclick="mostrar('song15')">
- Hoy y siempre eres...
- </button>
- <div id="song15" class="song">
- <audio controls>
- <source src="cancion15.mp3" type="audio/mpeg">
- </audio>
- </div>
-
- <!-- CANCIÓN 16 -->
- <button onclick="mostrar('song16')">
- Lo que siempre me pregunto es...
- </button>
- <div id="song16" class="song">
- <audio controls>
- <source src="cancion16.mp3" type="audio/mpeg">
- </audio>
- </div>
-
- <img src="foto2.jpg" alt="Siempre juntas💚">
-
- <p>
- Gracias por existir <br>
- Te quiero hoy, mañana y siempre 
- </p>
-
- <script>
- function mostrar(id) {
- document.getElementById(id).style.display = "block";
- }
-function mostrar(id) {
-document.getElementById(id).style.display = "block";
-}
-
-function abrirVisor(src) {
-document.getElementById("visorImg").src = src;
-document.getElementById("visor").style.display = "flex";
-}
-
-function cerrarVisor() {
-document.getElementById("visor").style.display = "none";
-} 
-  const audio = document.getElementById("audio");
-const player = document.getElementById("player");
-const buttons = document.querySelectorAll(".song-btn");
-
-let currentSong = null;
-
-function mostrarPlayer() {
-  player.classList.remove("hidden");
-  player.classList.add("visible");
-}
-
-function ocultarPlayer() {
-  player.classList.remove("visible");
-  player.classList.add("hidden");
-}
-
-// Click en canciones
-buttons.forEach(button => {
-  button.addEventListener("click", () => {
-    const songSrc = button.dataset.src;
-
-    // Misma canción → esconder
-    if (currentSong === songSrc) {
-      audio.pause();
-      ocultarPlayer();
-      currentSong = null;
-      return;
+    function mostrarPlayer() {
+      player.classList.remove("hidden");
+      player.classList.add("visible");
     }
 
-    // Otra canción
-    audio.pause();
-    audio.src = songSrc;
-    audio.play();
+    function ocultarPlayer() {
+      player.classList.remove("visible");
+      player.classList.add("hidden");
+    }
 
-    mostrarPlayer();
-    currentSong = songSrc;
-  });
-});
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const src = button.dataset.src;
 
-// Cuando termina la canción → esconder solo
-audio.addEventListener("ended", () => {
-  ocultarPlayer();
-  currentSong = null;
-});
+        if (currentSong === src) {
+          audio.pause();
+          ocultarPlayer();
+          currentSong = null;
+          return;
+        }
 
- </script>
-<div id="visor" onclick="cerrarVisor()">
-<img id="visorImg">
-</div>
+        audio.pause();
+        audio.src = src;
+        audio.play();
+        mostrarPlayer();
+        currentSong = src;
+      });
+    });
+
+    audio.addEventListener("ended", () => {
+      ocultarPlayer();
+      currentSong = null;
+    });
+
+    function abrirVisor(src) {
+      document.getElementById("visorImg").src = src;
+      document.getElementById("visor").style.display = "flex";
+    }
+
+    function cerrarVisor() {
+      document.getElementById("visor").style.display = "none";
+    }
+  </script>
+
 </body>
-
 </html>
-
-
-
